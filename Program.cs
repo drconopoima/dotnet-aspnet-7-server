@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.HttpLogging;
+using Microsoft.AspNetCore.Identity;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
@@ -27,4 +28,8 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+app.MapGet("/person", () => new Person("A","B") );
+
 app.Run();
+
+public record Person(string FirstName, string LastName);
