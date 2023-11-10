@@ -1,4 +1,10 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.AspNetCore.HttpLogging;
+
+WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddHttpLogging(opts => opts.LoggingFields = HttpLoggingFields.RequestProperties);
+
+builder.Logging.AddFilter("Microsoft.AspNetCore.HttpLogging", LogLevel.Information);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
@@ -10,6 +16,9 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
 }
+
+app.UseHttpLogging();
+
 app.UseStaticFiles();
 
 app.UseRouting();
